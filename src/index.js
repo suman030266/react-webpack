@@ -1,4 +1,6 @@
-import react from 'react';
+import React from 'react';
 import reactDOM from 'react-dom';
 
-reactDOM.render(`<p>111</p>`, window.root);
+reactDOM.render(<div>
+    <p>aaa</p>
+  </div>, window.root);
