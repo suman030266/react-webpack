@@ -5,7 +5,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 
 module.exports = {
-    entry: './src/index.js',
+    entry: './src/js/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'boundle.js'
@@ -19,7 +19,7 @@ module.exports = {
     },
     plugins: [
         new htmlWebpackPlugin({
-            template: './src/index.html',
+            template: './view/index.html',
             filename: 'index.html'
         }),
         // new webpack.HotModuleReplacementPlugin()
@@ -36,7 +36,7 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: ['@babel/preset-env'],
-                        plugins: ['@babel/plugin-transform-runtime', '@babel/plugin-transform-react-jsx']
+                        plugins: ['@babel/plugin-transform-react-jsx']
                     }
                 }
             },
