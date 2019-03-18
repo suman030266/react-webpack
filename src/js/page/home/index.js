@@ -5,8 +5,8 @@ export default class Home extends Component{
     render(){
         return (
             <React.Fragment>
-                <div class="header">home</div>
-                <div class="content">xxxx</div>
+                <div className="header">home</div>
+                <div className="content">home自定义内容</div>
             </React.Fragment>
         );
     }

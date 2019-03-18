@@ -1,8 +1,9 @@
 import React,{Component} from 'react';
-import '../sass/index.scss';
+import 'css/index.scss';
 import {BrowserRouter, HashRouter, HashRouter as Router, Route, Switch} from 'react-router-dom';
-import Home from './page/home';
-import Other from './page/other';
+import Home from 'page/home';
+import Other from 'page/other';
+import Content from 'components/Content';
 export default class App extends Component{
     render(){
         return (
@@ -14,6 +15,7 @@ export default class App extends Component{
                         {/* <Route path="/topics" component={Topics} /> */}
                     </Switch>
                 </Router>
+                <Content />
                 {this.props.children}
             </React.Fragment>
         );

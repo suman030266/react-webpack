@@ -1,26 +1,25 @@
 const path = require('path');
 const htmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const alias = require('../alias');
 
 module.exports = {
-    entry: './src/js/index.js',
+    entry: {
+        vendor: ['react', 'react-dom', /*'redux',*/ 'react-router-dom'],
+        index: './src/js/index.js'
+    },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'boundle.js'
+        filename: 'js/[name].js',
+        publicPath: '/'
     },
-    mode: 'production',
-    devServer: {
-        contentBase: './dist',
-        port: 4000,
-        host: '0.0.0.0',
-        // hot: true
-    },
+    // mode: 'production',
     plugins: [
         new htmlWebpackPlugin({
             template: './view/index.html',
-            filename: 'index.html'
+            filename: 'index.html',
+            chunk: ['vender', 'index']
         }),
         // new webpack.HotModuleReplacementPlugin()
         new MiniCssExtractPlugin({
@@ -30,7 +29,7 @@ module.exports = {
     module: {
         rules: [
             { 
-                test: /\.js$/,
+                test: /\.js[x]?$/,
                 include: path.resolve('src'), // 只解析src下js文件
                 use:{
                     loader: 'babel-loader',
@@ -42,7 +41,7 @@ module.exports = {
             },
             {
                 test: /\.scss$/,
-                // include: path.resolve('src'),
+                include: path.resolve('src'),
                 exclude: /node_modules/,
                 use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'] 
             
@@ -52,11 +51,27 @@ module.exports = {
                 use: {
                     loader: 'url-loader',
                     options: {
-                        limit: 200 * 1024 // 小于200k转 base64格式
+                        limit: 20 * 1024 // 小于200k转 base64格式
                     }
                 }
             },
         ]
-    }
+    },
+    resolve: {
+        extensions: ['.js', '.jsx'],
+        alias
+    },
+    // plugins: [
+	// 	new webpack.NoEmitOnErrorsPlugin(),
+	// 	new FriendlyErrorsPlugin(),
+	// 	new ExtractTextPlugin({
+	// 		filename: 'css/[name].css'
+	// 	}),
+	// 	new webpack.optimize.CommonsChunkPlugin({
+	// 		name: 'vendor',
+	// 		filename: 'js/vendor.js',
+	// 		minChunks: Infinity
+	// 	})
+    // ]
 };
 
