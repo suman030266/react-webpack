@@ -10,13 +10,7 @@ export default class Content extends Component{
     }
     componentWillMount(){
         console.log('will');
-        // fetch('/v1').then(res=>res.json()).then(data =>{
-        //     console.log(data);
-        //     this.setState({
-        //         data: data.data
-        //     });
-        // });
-        fetch.get('/v1',{
+        fetch.get('/talent/recommend_list',{
             params: {
                 a: 1,
                 b: 2
@@ -24,9 +18,9 @@ export default class Content extends Component{
 			loading: true
         }).then((res)=>{
 			console.log(res);
-		}).catch(()=>{
-			toast('网络请求失败，请稍后重试');
-		})
+		}).catch((err)=>{
+			console.log(err);
+		});
     }
     render(){
         let {data} = this.state;

@@ -12,7 +12,7 @@ const compiler = webpack(webpackConfig);
 
 const server = new WebpackDevServer(compiler, {
     contentBase: './dist',
-    port: port,
+    port,
     host,
     hot: true,
     proxy: [
@@ -23,8 +23,9 @@ const server = new WebpackDevServer(compiler, {
             secure: false
         },
         {
-            context:['/ajax/**'], // 请求时直接 /ajax/topic/hotRecommend 即可
-            target: 'http://group.gome.com.cn',
+            context:['/talent/recommend_list'], // pc接口 移动端不可使用 302 请求时直接 /talent/recommend_list 即可
+            // target: 'http://group.gome.com.cn',
+            target: 'http://group.dev.atguat.com.cn',
             changeOrigin: true,
             secure: false
         }

@@ -22,15 +22,26 @@ const config = {
 
 let fetch = axios.create(config);
 const requestInter = fetch => {
-    fetch.interceptors.request.use(config => {
-        console.log(config);
-        return config;
+    fetch.interceptors.request.use(req => {
+        console.log(req);
+        if (req.loading) {
+            let $loadingBox = document.querySelector('.loading-box');
+            $loadingBox && ($loadingBox.style.display = 'block');
+            setTimeout(function(){
+                if($loadingBox && $loadingBox.style.display == 'block'){
+                    $loadingBox.style.display = 'none';
+                }
+            }, 5000);
+        }
+        return req;
     }, err => Promise.reject(err))
 };
 
 const responseInter = fetch => {
     fetch.interceptors.response.use(res=> {
         console.log(res);
+        let $loadingBox = document.querySelector('.loading-box');
+        $loadingBox && ($loadingBox.style.display = 'none');
         return res.data;
     }, err => Promise.reject(err))
 };
@@ -39,33 +50,3 @@ requestInter(fetch);
 responseInter(fetch);
 
 export default fetch;
-
-// export const requestInter = (fetch)=>{
-//     fetch.interceptors.request.use(function (config) {
-//         if (config.loading) {
-//             let $loadingBox = document.querySelector('.pgc-loading-box');
-//             $loadingBox && ($loadingBox.style.display = 'flex');
-//             setTimeout(function(){
-//                 if($loadingBox && $loadingBox.style.display == 'flex'){
-//                     $loadingBox.style.display = 'none';
-//                 }
-//             },10000);
-//         }
-//         return config;
-//     }, function (error) {
-//         return Promise.reject(error);
-//     });
-// }
-
-// export const responseInter = (fetch)=> {
-//     fetch.interceptors.response.use(function (response) {
-//         if (response.data.message === "auth failed") {
-//             window.location.href = '/';
-//         }
-//         let $loadingBox = document.querySelector('.pgc-loading-box');
-//         $loadingBox && ($loadingBox.style.display = 'none');
-//         return response;
-//     }, function (error) {
-//         return Promise.reject(error);
-//     });
-// }
