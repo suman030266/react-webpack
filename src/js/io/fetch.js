@@ -23,7 +23,7 @@ const config = {
 let fetch = axios.create(config);
 const requestInter = fetch => {
     fetch.interceptors.request.use(req => {
-        console.log(req);
+        // console.log(req);
         if (req.loading) {
             let $loadingBox = document.querySelector('.loading-box');
             $loadingBox && ($loadingBox.style.display = 'block');
@@ -39,7 +39,7 @@ const requestInter = fetch => {
 
 const responseInter = fetch => {
     fetch.interceptors.response.use(res=> {
-        console.log(res);
+        // console.log(res);
         let $loadingBox = document.querySelector('.loading-box');
         $loadingBox && ($loadingBox.style.display = 'none');
         return res.data;

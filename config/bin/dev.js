@@ -23,7 +23,7 @@ const server = new WebpackDevServer(compiler, {
             secure: false
         },
         {
-            context:['/talent/recommend_list'], // pc接口 移动端不可使用 302 请求时直接 /talent/recommend_list 即可
+            context:['/talent/**'], // pc接口 移动端不可使用 302 请求时直接 /talent/recommend_list 即可
             // target: 'http://group.gome.com.cn',
             target: 'http://group.dev.atguat.com.cn',
             changeOrigin: true,

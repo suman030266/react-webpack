@@ -3,27 +3,24 @@ const htmlWebpackPlugin = require('html-webpack-plugin');
 const webpack = require('webpack');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const alias = require('../alias');
-
 module.exports = {
     entry: {
         vendor: ['react', 'react-dom', /*'redux',*/ 'react-router-dom'],
         index: './src/js/index.js'
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: path.resolve(process.cwd(), 'dist'),
         filename: 'js/[name].js',
         publicPath: '/'
     },
-    // mode: 'production',
     plugins: [
         new htmlWebpackPlugin({
             template: './view/index.html',
             filename: 'index.html',
             chunk: ['vender', 'index']
         }),
-        // new webpack.HotModuleReplacementPlugin()
-        new MiniCssExtractPlugin({
-            filename: 'main.css'
+		new MiniCssExtractPlugin({
+			filename: 'css/[name].css'
         }),
     ],
     module: {
@@ -34,8 +31,14 @@ module.exports = {
                 use:{
                     loader: 'babel-loader',
                     options: {
-                        presets: ['@babel/preset-env'],
-                        plugins: ['@babel/plugin-transform-react-jsx']
+                        presets: [
+                            '@babel/preset-env',
+                            '@babel/preset-react'
+                        ],
+                        plugins:[
+                            '@babel/plugin-syntax-dynamic-import',
+                            '@babel/plugin-transform-react-jsx'
+                        ]
                     }
                 }
             },
@@ -43,7 +46,7 @@ module.exports = {
                 test: /\.scss$/,
                 include: path.resolve('src'),
                 exclude: /node_modules/,
-                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader'] 
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'postcss-loader', 'sass-loader']
             
             },
             {
@@ -60,18 +63,5 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx'],
         alias
-    },
-    // plugins: [
-	// 	new webpack.NoEmitOnErrorsPlugin(),
-	// 	new FriendlyErrorsPlugin(),
-	// 	new ExtractTextPlugin({
-	// 		filename: 'css/[name].css'
-	// 	}),
-	// 	new webpack.optimize.CommonsChunkPlugin({
-	// 		name: 'vendor',
-	// 		filename: 'js/vendor.js',
-	// 		minChunks: Infinity
-	// 	})
-    // ]
+    }
 };
-

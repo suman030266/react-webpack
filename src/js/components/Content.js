@@ -5,19 +5,20 @@ export default class Content extends Component{
     constructor(){
         super();
         this.state = {
-            data: {}
+            data: []
         };
     }
     componentWillMount(){
-        console.log('will');
-        fetch.get('/talent/recommend_list',{
+        console.log('componentWillMount');
+        fetch.get('/talent/new_list',{
             params: {
                 a: 1,
                 b: 2
 			},
 			loading: true
         }).then((res)=>{
-			console.log(res);
+            let {data} = res;
+            this.setState({data});
 		}).catch((err)=>{
 			console.log(err);
 		});
@@ -28,8 +29,8 @@ export default class Content extends Component{
             <div className="main">
                 <ul>
                     {
-                        Object.keys(data).map((item, index) =>{
-                            return <li key={index}>{item}:{data[item]}<br /></li>
+                        data.map((item, index) =>{
+                            return <li key={index}>{index}:{item.name}<br /></li>
                         })
                     }
                 </ul>
