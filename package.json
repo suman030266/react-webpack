@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "dev": "webpack-dev-server",
-    "newDev": "node ./config/bin/dev.js --env=dev --port=80",
+    "dev": "node ./config/bin/dev.js --env=dev --port=80",
     "newBuild": "node ./config/bin/build.js"
   },
   "author": "",
